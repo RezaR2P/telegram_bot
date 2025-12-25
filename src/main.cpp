@@ -37,37 +37,86 @@ void handleNewMessages(int numNewMessages)
 
     if (text == "/LampuMerahMenyala")
     {
-      digitalWrite(ledPins[0], HIGH); // turn the LED on (HIGH is the voltage level)
+      digitalWrite(ledPins[0], HIGH); // Menyalakan LED (HIGH adalah level tegangan)
       ledStatus = 1;
-      bot.sendMessage(chat_id, "Led is ON", "");
+      bot.sendMessage(chat_id, "Lampu Merah Menyala", "");
     }
 
     if (text == "/LampuMerahMati")
     {
       ledStatus = 0;
-      digitalWrite(ledPins[0], LOW); // turn the LED off (LOW is the voltage level)
-      bot.sendMessage(chat_id, "Led is OFF", "");
+      digitalWrite(ledPins[0], LOW); // Mematikan LED (LOW adalah level tegangan)
+      bot.sendMessage(chat_id, "Lampu Merah Mati", "");
     }
+
+    if (text == "/LampuKuningMenyala")
+    {
+      digitalWrite(ledPins[1], HIGH); // Menyalakan LED (HIGH adalah level tegangan)
+      ledStatus = 1;
+      bot.sendMessage(chat_id, "Lampu Kuning Menyala", "");
+    }
+
+    if (text == "/LampuKuningMati")
+    {
+      ledStatus = 0;
+      digitalWrite(ledPins[1], LOW); // Mematikan LED (LOW adalah level tegangan)
+      bot.sendMessage(chat_id, "Lampu Kuning Mati", "");
+    }
+
+        if (text == "/LampuHijauMenyala")
+    {
+      digitalWrite(ledPins[2], HIGH); // Menyalakan LED (HIGH adalah level tegangan)
+      ledStatus = 1;
+      bot.sendMessage(chat_id, "Lampu Hijau Menyala", "");
+    }
+
+    if (text == "/LampuHijauMati")
+    {
+      ledStatus = 0;
+      digitalWrite(ledPins[2], LOW); // Mematikan LED (LOW adalah level tegangan)
+      bot.sendMessage(chat_id, "Lampu Hijau Mati", "");
+    }
+
 
     if (text == "/status")
     {
-      if (ledStatus)
+      if (digitalRead(ledPins[0]) == HIGH)
       {
-        bot.sendMessage(chat_id, "Led is ON", "");
+        bot.sendMessage(chat_id, "Lampu Merah Menyala", "");
       }
       else
       {
-        bot.sendMessage(chat_id, "Led is OFF", "");
+        bot.sendMessage(chat_id, "Lampu Merah Mati", "");
+      }
+      if (digitalRead(ledPins[1]) == HIGH)
+      {
+        bot.sendMessage(chat_id, "Lampu Kuning Menyala", "");
+      }
+      else
+      {
+        bot.sendMessage(chat_id, "Lampu Kuning Mati", "");
+      }
+      if (digitalRead(ledPins[2]) == HIGH)
+      {
+        bot.sendMessage(chat_id, "Lampu Hijau Menyala", "");
+      }
+      else
+      {
+        bot.sendMessage(chat_id, "Lampu Hijau Mati", "");
       }
     }
 
     if (text == "/start")
     {
-      String welcome = "Welcome to Universal Arduino Telegram Bot library, " + from_name + ".\n";
-      welcome += "This is Flash Led Bot example.\n\n";
-      welcome += "/LampuMerahMenyala : to switch the Led ON\n";
-      welcome += "/LampuMerahMati : to switch the Led OFF\n";
-      welcome += "/status : Returns current status of LED\n";
+      String welcome = "Selamat Datang Di Bot Telegram Menyalakan Lampu Automatis, " + from_name + ".\n";
+      welcome += "Ini adalah contoh Bot LED Berkedip.\n\n";
+      welcome += "/LampuMerahMenyala : untuk menyalakan LED\n";
+      welcome += "/LampuMerahMati : untuk mematikan LED\n";
+      welcome += "/LampuKuningMenyala : untuk menyalakan LED\n";
+      welcome += "/LampuKuningMati : untuk mematikan LED\n";
+      welcome += "/LampuHijauMenyala : untuk menyalakan LED\n";
+      welcome += "/LampuHijauMati : untuk mematikan LED\n";
+      welcome += "/status : Mengembalikan status LED saat ini\n";
       bot.sendMessage(chat_id, welcome, "Markdown");
     }
   }
