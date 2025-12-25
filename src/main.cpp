@@ -80,29 +80,38 @@ void handleNewMessages(int numNewMessages)
 
     if (text == "/status")
     {
-      if (digitalRead(ledPins[0]) == HIGH)
+      // Baca status ketiga lampu
+      bool merah  = digitalRead(ledPins[0]) == HIGH;
+      bool kuning = digitalRead(ledPins[1]) == HIGH;
+      bool hijau  = digitalRead(ledPins[2]) == HIGH;
+
+      if (merah && kuning && hijau)
+      {
+        bot.sendMessage(chat_id, "Lampu Hijau, Kuning, dan Merah Menyala", "");
+      }
+      else if (merah && kuning && !hijau)
+      {
+        bot.sendMessage(chat_id, "Lampu Kuning dan Merah Menyala", "");
+      }
+      else if (!merah && kuning && hijau)
+      {
+        bot.sendMessage(chat_id, "Lampu Hijau dan Kuning Menyala", "");
+      }
+      else if (merah && !kuning && !hijau)
       {
         bot.sendMessage(chat_id, "Lampu Merah Menyala", "");
       }
-      else
-      {
-        bot.sendMessage(chat_id, "Lampu Merah Mati", "");
-      }
-      if (digitalRead(ledPins[1]) == HIGH)
+      else if (!merah && kuning && !hijau)
       {
         bot.sendMessage(chat_id, "Lampu Kuning Menyala", "");
       }
-      else
-      {
-        bot.sendMessage(chat_id, "Lampu Kuning Mati", "");
-      }
-      if (digitalRead(ledPins[2]) == HIGH)
+      else if (!merah && !kuning && hijau)
       {
         bot.sendMessage(chat_id, "Lampu Hijau Menyala", "");
       }
       else
       {
-        bot.sendMessage(chat_id, "Lampu Hijau Mati", "");
+        bot.sendMessage(chat_id, "Semua Lampu Mati", "");
       }
     }
 
